@@ -26,8 +26,11 @@ describe("Coffee CRUD operations", () => {
 
   it("Should add a new coffee", async () => {
     const id = Math.floor(Math.random() * 999);
-    const cafe = { id, nombre: "New Coffee" };
-    const { body: cafes } = await request(server).post("/cafes").send(cafe);
+    const cafe = { id, nombre: "New Coffee" };    
+    const response = await request(server).post("/cafes").send(cafe);
+    const cafes = response.body;
+    const status = response.statusCode;
+    expect(status).toBe(201);
     expect(cafes).toContainEqual(cafe);
   });
 
